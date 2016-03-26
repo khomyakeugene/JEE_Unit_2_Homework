@@ -8,7 +8,7 @@ public class Utils {
     public static void printLine(String message) {
         System.out.print(message);
     }
-//ewer
+
     public static void printMessage(String message) {
         printLine(message + "\n");
     }
