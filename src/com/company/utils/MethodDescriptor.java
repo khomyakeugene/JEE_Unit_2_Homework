@@ -29,6 +29,20 @@ public class MethodDescriptor {
         this.dataPrePopulate = dataPrePopulate;
     }
 
+    public MethodDescriptor(String fullMethodName, MethodArgumentType[] methodArgumentType,
+                            boolean collectionAsObjectMethod, boolean dataPrePopulate) {
+        this (fullMethodName, null, methodArgumentType, collectionAsObjectMethod, dataPrePopulate);
+    }
+
+    public MethodDescriptor(String fullMethodName, MethodArgumentType methodArgumentType,
+                            boolean collectionAsObjectMethod, boolean dataPrePopulate) {
+        this (fullMethodName, null, new MethodArgumentType[] {methodArgumentType}, collectionAsObjectMethod, dataPrePopulate);
+    }
+
+    public MethodDescriptor(String fullMethodName, MethodArgumentType methodArgumentType) {
+        this (fullMethodName, methodArgumentType, true, true);
+    }
+
     public boolean isCollectionAsObjectMethod() {
         return collectionAsObjectMethod;
     }
@@ -44,7 +58,7 @@ public class MethodDescriptor {
     public void setFullMethodName(String fullMethodName) {
         String[] mn = fullMethodName.split(METHOD_NAME_REGEX_DELIMITER);
         subsidiaryMethodNames = Arrays.copyOf(mn, mn.length-1);
-        
+
         this.fullMethodName = fullMethodName;
         this.methodName = mn[mn.length-1];
     }
@@ -63,10 +77,10 @@ public class MethodDescriptor {
 
     public void setMethodArgumentType(MethodArgumentType[] methodArgumentType) {
         subsidiaryMethodArgumentTypes = Arrays.copyOf(methodArgumentType, methodArgumentType.length-1);
-        
+
         this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
     }
-    
+
     public Method getMethod(Object object) {
         return getMethodArgumentType().getMethod(object, getMethodName());
     }
