@@ -21,6 +21,6 @@ public class TransformCelsiusToFahrenheitTask implements Task<Double> {
 
     @Override
     public Double getResult() {
-        return null;
+        return result;
     }
 }
