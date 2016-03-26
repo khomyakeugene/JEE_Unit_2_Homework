@@ -15,7 +15,7 @@ public interface Executor<E> {
     // Should throw an exception in case if the method execute() was already called
     void addTask(Task<? extends E>  task, Validator<E> validator) throws Exception;
 
-    // Execute all added tasks
+    // Execute all added tasks wqeqd
     void execute();
 
     // Get valid results. Should throw an exception if the method execute() has not been called
