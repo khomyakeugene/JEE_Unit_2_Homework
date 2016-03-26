@@ -1,5 +1,7 @@
 package com.company.tasks.implementation;
 
+import com.company.tasks.implementation.distance.Distance;
+import com.company.tasks.implementation.distance.Point;
 import com.company.tasks.implementation.temperature.Temperature;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -22,6 +24,10 @@ public class TaskExecutorTest {
     private static final double emptyDoubleArray[] = {};
     private static final double calcAverageDoubleValueTaskInputData[] = {123.66, 55.0, 729.8, 44.0};
     private static final double TransformCelsiusToFahrenheitTaskInputData = 23.0;
+    public static final Double X1 = 3.0;
+    public static final Double Y1 = 5.3;
+    public static final Double X2 = 7.2;
+    public static final Double Y2 = 1.1;
 
     private static TaskExecutor<Number> taskExecutor = new TaskExecutor<>();
 
@@ -32,30 +38,32 @@ public class TaskExecutorTest {
         taskExecutor.addTask(new TransformCelsiusToFahrenheitTask(TransformCelsiusToFahrenheitTaskInputData));
     }
 
-    @Test (timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000, expected = Exception.class)
     public void test1_testGetValidResultsBeforeExecute() throws Exception {
         taskExecutor.getValidResults();
     }
 
-    @Test (timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000, expected = Exception.class)
     public void test2_testGetInvalidResultsBeforeExecute() throws Exception {
         taskExecutor.getInvalidResults();
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void test3_testAddTaskBeforeExecute() throws Exception {
+        taskExecutor.addTask(new CalcDistanceTask(X1, Y1, X2, Y2));
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void test4_testExecute() throws Exception {
         taskExecutor.execute();
     }
 
-    @Test (timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000, expected = Exception.class)
     public void test5_testAddTaskAfterExecute() throws Exception {
+        taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void test6_testGetValidResultsAfterExecute() throws Exception {
         List<Number> expected = new ArrayList<>();
 
@@ -63,18 +71,17 @@ public class TaskExecutorTest {
         OptionalDouble od = Arrays.stream(calcAverageDoubleValueTaskInputData).average();
         expected.add(od.isPresent() ? od.getAsDouble() : null);
         expected.add(Temperature.transformCelsiusToFahrenheit(TransformCelsiusToFahrenheitTaskInputData));
+        expected.add(Distance.calcDistance(new Point(X1, Y1), new Point(X2, Y2)));
 
         // Actual data
         List<Number> actual = taskExecutor.getValidResults();
 
-        // Because the collection performance test are presented here, let try not "full equal comparing", but
-        // using some difference delta; anyway, we just test <TaskExecutor<Number>> functionality, not precise results
-        // of each performed task
+        // Try to compare as double
         assertArrayEquals(expected.stream().mapToDouble(Number::doubleValue).toArray(),
                 actual.stream().mapToDouble(Number::doubleValue).toArray(), 0.0);
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void test7_testGetInvalidResultsAfterExecute() throws Exception {
         List<Number> expected = new ArrayList<>();
         expected.add(null);
