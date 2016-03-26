@@ -8,6 +8,7 @@ import com.company.tasks.interfaces.Validator;
 public class NotNullValidator<E> implements Validator<E> {
     @Override
     public boolean isValid(E result) {
+        //qewq
         return result != null;
     }
 }

@@ -20,7 +20,6 @@ public class CalcAverageDoubleValueTask implements Task<Double> {
     public void execute() {
         OptionalDouble optionalDoubleResult = Arrays.stream(inputData).average();
 
-        // reer
         result = optionalDoubleResult.isPresent() ? optionalDoubleResult.getAsDouble() : null;
     }
 
