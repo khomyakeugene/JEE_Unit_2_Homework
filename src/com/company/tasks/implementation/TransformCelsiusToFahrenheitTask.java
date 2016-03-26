@@ -8,7 +8,7 @@ import com.company.tasks.interfaces.Task;
  */
 public class TransformCelsiusToFahrenheitTask implements Task<Double> {
     Double celsiusDegree;
-    private Double result = null;
+    private Double result;
 
     public TransformCelsiusToFahrenheitTask(Double celsiusDegree) {
         this.celsiusDegree = celsiusDegree;

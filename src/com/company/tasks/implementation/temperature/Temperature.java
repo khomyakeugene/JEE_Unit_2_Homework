@@ -10,8 +10,4 @@ public class Temperature {
     public static Double transformCelsiusToFahrenheit(Double celsiusDegree) {
         return (celsiusDegree * CELSIUS_TO_FAHRENHEIT_MULTIPLIER) + CELSIUS_TO_FAHRENHEIT_DIFFERENCE;
     }
-
-    public static Double transformFahrenheitToCelsius(Double fahrenheitDegree) {
-        return (fahrenheitDegree - CELSIUS_TO_FAHRENHEIT_DIFFERENCE) / CELSIUS_TO_FAHRENHEIT_MULTIPLIER;
-    }
 }
