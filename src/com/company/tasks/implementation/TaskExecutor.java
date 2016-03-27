@@ -3,7 +3,6 @@ package com.company.tasks.implementation;
 import com.company.tasks.interfaces.Executor;
 import com.company.tasks.interfaces.Task;
 import com.company.tasks.interfaces.Validator;
-import com.company.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +49,7 @@ public class TaskExecutor<E> implements Executor<E> {
     private void executeOneTask(int taskIndex) {
         Task<? extends E> task = tasks.get(taskIndex);
 
-        Utils.printMessage(String.format(EXECUTE_TASK_PATTERN, task.getClass().getName(), taskIndex));
-        task.execute();
+        System.out.println(String.format(EXECUTE_TASK_PATTERN, task.getClass().getName(), taskIndex));
         E result = task.getResult();
 
         Validator<E> validator = validators.get(taskIndex);
