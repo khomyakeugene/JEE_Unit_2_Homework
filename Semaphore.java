@@ -1,18 +1,17 @@
 // Produce semaphore using methods wait(), notify(), notifyAll() 
 public interface Semaphore {
-  // Require permission. If exists one,  grip it. Otherwise suspend the thread till the permission does not appear
-  public void acquire();
+  // Acquires a permit from this semaphore, blocking until one is available
+  public void acquire() throws InterruptedException;
   
-  // Require given quantity of permisions. If it exists, grip it. 
-  // If not - suspend the thread until this given quantity of permisions do not appear
-  public void acquire(int permits);
+  // Acquires the given number of permits from this semaphore, blocking until all are available
+  public void acquire(int permits) throws InterruptedException;
   
-  // Release permission returning it to semaphore
+  // Release permission, returning it to semaphore
   public void release();
 
-  // Release given quantity of permisions returning it to semaphore
+  // Releases the given number of permits, returning them to the semaphore
   public void release(int permits);
   
-  // Return quantity of free permission at the moment 
+  // Returns the current number of permits available in this semaphore at the moment 
   public int getAvailablePermits();
 }
