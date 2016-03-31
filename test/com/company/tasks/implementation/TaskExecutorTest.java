@@ -63,7 +63,7 @@ public class TaskExecutorTest {
         taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void test6_testGetValidResultsAfterExecute() throws Exception {
         List<Number> expected = new ArrayList<>();
 
