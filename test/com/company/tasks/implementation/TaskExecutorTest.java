@@ -24,10 +24,10 @@ public class TaskExecutorTest {
     private static final double emptyDoubleArray[] = {};
     private static final double calcAverageDoubleValueTaskInputData[] = {123.66, 55.0, 729.8, 44.0};
     private static final double TransformCelsiusToFahrenheitTaskInputData = 23.0;
-    public static final Double X1 = 3.0;
-    public static final Double Y1 = 5.3;
-    public static final Double X2 = 7.2;
-    public static final Double Y2 = 1.1;
+    private static final Double X1 = 3.0;
+    private static final Double Y1 = 5.3;
+    private static final Double X2 = 7.2;
+    private static final Double Y2 = 1.1;
 
     private static TaskExecutor<Number> taskExecutor = new TaskExecutor<>();
 
@@ -63,7 +63,7 @@ public class TaskExecutorTest {
         taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
     }
 
-    @Test(timeout = 1000)
+    @Test
     public void test6_testGetValidResultsAfterExecute() throws Exception {
         List<Number> expected = new ArrayList<>();
 
