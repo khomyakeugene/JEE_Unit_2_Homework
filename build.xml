@@ -5,13 +5,21 @@
     <property name="deploy.dir" value="deploy"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
-    <property name="main-class" value="com.company.Main"/>
     <property name="jar.name" value="${ant.project.name}.jar"/>
     <property name="build.jar.name" value="${jar.dir}/${jar.name}.jar"/>
     <property name="deploy.name" value="${deploy.dir}/${jar.name}.jar"/>
+    <property name="test.dir" value="test"/>
+    <property name="report.dir" value="${test.dir}/report"/>
+    <property name="report.filename" value="${report.dir}/test_results"/>
+    <property name="junit.dir" location="${ant.home}/.." />
+    <property name="junit.jar" location="${junit.dir}/junit-4.12.jar"/>
+    <property name="hamcrest.jar" location="${junit.dir}/hamcrest-core-1.3.jar"/>
+    <property name="test.class.name" value="com.company.tasks.implementation.TaskExecutorTest"/>
 
     <target name="clean">
+        <delete dir="${jar.dir}"/>
         <delete dir="${build.dir}"/>
+        <delete dir="${report.dir}"/>
     </target>
 
     <target name="compile" depends="clean">
@@ -19,21 +27,33 @@
         <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
     </target>
 
-    <target name="jar" depends="compile">
+    <target name="compile.test" depends="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${test.dir}" destdir="${classes.dir}" includeantruntime="false" classpath="${junit.jar}"/>
+    </target>
+
+    <target name="test" depends="compile.test">
+        <mkdir dir="${report.dir}"/>
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath location="${junit.jar}"/>
+            <classpath location="${hamcrest.jar}"/>
+            <classpath location="${classes.dir}"/>
+
+            <test name="${test.class.name}" haltonfailure="yes" outfile="${report.filename}">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+    <target name="jar" depends="test">
         <mkdir dir="${jar.dir}"/>
-        <jar destfile="${build.jar.name}" basedir="${classes.dir}">
-        </jar>
+        <jar destfile="${build.jar.name}" basedir="${classes.dir}"/>
     </target>
 
     <target name="deploy" depends="jar">
-        <delete dir="${deploy.dir}"/>
         <mkdir dir="${deploy.dir}"/>
         <copy file="${build.jar.name}" todir="${deploy.dir}"/>
     </target>
 
-    <target name="run" depends="deploy,clean">
-        <java jar="${deploy.name}" fork="true"/>
-    </target>
-
-    <target name="main" depends="clean,run"/>
+    <target name="main" depends="clean,deploy"/>
 </project>
