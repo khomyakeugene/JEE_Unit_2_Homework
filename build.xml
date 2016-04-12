@@ -6,8 +6,8 @@
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
     <property name="jar.name" value="${ant.project.name}.jar"/>
-    <property name="build.jar.name" value="${jar.dir}/${jar.name}.jar"/>
-    <property name="deploy.name" value="${deploy.dir}/${jar.name}.jar"/>
+    <property name="build.jar.name" value="${jar.dir}/${jar.name}"/>
+    <property name="deploy.name" value="${deploy.dir}/${jar.name}"/>
     <property name="test.dir" value="test"/>
     <property name="report.dir" value="${test.dir}/report"/>
     <property name="report.filename" value="${report.dir}/test_results"/>
@@ -53,12 +53,13 @@
         </junit>
     </target>
 
-    <target name="jar" depends="test">
+    <target name="jar" depends="test,compile">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${build.jar.name}" basedir="${classes.dir}"/>
     </target>
 
     <target name="deploy" depends="jar">
+        <delete dir="${deploy.dir}"/>
         <mkdir dir="${deploy.dir}"/>
         <copy file="${build.jar.name}" todir="${deploy.dir}"/>
         <antcall target="clean.build.data"/>
