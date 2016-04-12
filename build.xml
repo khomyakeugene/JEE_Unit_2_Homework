@@ -37,7 +37,7 @@
 
     <target name="compile.test" depends="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${test.dir}" destdir="${classes.dir}" includeantruntime="false" classpath="${junit.jar}"/>
+        <javac srcdir="${test.dir}" destdir="${classes.dir}" classpath="${junit.jar}"/>
     </target>
 
     <target name="test" depends="compile.test">
