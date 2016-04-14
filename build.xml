@@ -4,20 +4,20 @@
     <property name="junit" location="${lib}" />
     <property name="junit.jar" location="${junit}/junit-4.12.jar"/>
     <property name="hamcrest.jar" location="${junit}/hamcrest-core-1.3.jar"/>
-    <property name="src" location="src"/>
+    <property name="src" location="src/main/java"/>
     <property name="src.build" location="build"/>
     <property name="classes" location="${src.build}/classes"/>
-    <property name="test.src" location="test"/>
-    <property name="test.build" location="test/build"/>
+    <property name="test" location="src/test"/>
+    <property name="test.src" location="${test}/java"/>
+    <property name="test.build" location="${test}/build"/>
     <property name="test.class.name" value="com.company.tasks.implementation.TaskExecutorTest"/>
-    <property name="report" location="test/report"/>
+    <property name="report" location="${test}/report"/>
     <property name="report.filename" value="test_results"/>
     <property name="jar" location="${src.build}/jar"/>
     <property name="jar.name" value="${ant.project.name}.jar"/>
     <property name="build.name" location="${jar}/${jar.name}"/>
     <property name="deploy" location="deploy"/>
     <property name="deploy.name" location="${deploy}/${jar.name}"/>
-    <property name="maven.test.dir" location="${src}/test/java/com/company/tasks/implementation/MavenTaskExecutorTest.java"/>
 
     <path id="test.classpath">
         <pathelement location="${junit.jar}"/>
@@ -42,13 +42,7 @@
 
     <target name="compile" depends="clean">
         <mkdir dir="${classes}"/>
-        <javac srcdir="${src}"
-               destdir="${classes}"
-               source="1.8"
-               target="1.8"
-               includeantruntime="false"
-               >
-        </javac>
+        <javac srcdir="${src}" destdir="${classes}" source="1.8" target="1.8" includeantruntime="false"/>
     </target>
 
     <target name="compile.test" depends="compile">
