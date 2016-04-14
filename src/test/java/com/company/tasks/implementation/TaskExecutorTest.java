@@ -20,7 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
  */
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MavenTaskExecutorTest {
+public class TaskExecutorTest {
     private static final double emptyDoubleArray[] = {};
     private static final double calcAverageDoubleValueTaskInputData[] = {123.66, 55.0, 729.8, 44.0};
     private static final double TransformCelsiusToFahrenheitTaskInputData = 23.0;
