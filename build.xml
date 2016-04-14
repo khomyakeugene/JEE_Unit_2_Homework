@@ -9,7 +9,7 @@
     <property name="classes" location="${src.build}/classes"/>
     <property name="test.src" location="test"/>
     <property name="test.build" location="test/build"/>
-    <property name="test.class.name" value="com.company.tasks.implementation.TaskExecutorTest"/>
+    <property name="test.class.name" value="com.company.tasks.implementation.MavenTaskExecutorTest"/>
     <property name="report" location="test/report"/>
     <property name="report.filename" value="test_results"/>
     <property name="jar" location="${src.build}/jar"/>
@@ -40,8 +40,15 @@
     </target>
 
     <target name="compile" depends="clean">
+        <echoproperties destfile="my_properties"/>
         <mkdir dir="${classes}"/>
-        <javac srcdir="${src}" destdir="${classes}" source="1.8" target="1.8" includeantruntime="false"/>
+        <javac srcdir="${src}"
+               destdir="${classes}"
+               source="1.8"
+               target="1.8"
+               includeantruntime="false"
+               excludes="Maven*.*"
+        />
     </target>
 
     <target name="compile.test" depends="compile">

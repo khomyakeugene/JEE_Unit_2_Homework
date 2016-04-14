@@ -11,6 +11,7 @@
     <name>JEE_Unit_2_Homework</name>
 
     <build>
+        <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
