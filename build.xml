@@ -16,7 +16,7 @@
     <property name="build.name" location="${jar}/${jar.name}"/>
     <property name="deploy" location="deploy"/>
     <property name="deploy.name" location="${deploy}/${jar.name}"/>
-    <property name="report" location="${deploy}/report"/>
+    <property name="report" location="${test}/report"/>
     <property name="report.filename" value="test_results"/>
 
     <path id="test.classpath">
